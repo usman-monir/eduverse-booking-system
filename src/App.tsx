@@ -11,6 +11,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import TutorDashboard from "./pages/TutorDashboard";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import BookClass from "./pages/BookClass";
@@ -25,25 +26,32 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  const getDefaultRoute = () => {
+    if (!user) return "/login";
+    if (user.role === 'admin') return "/admin";
+    if (user.role === 'tutor') return "/tutor-dashboard";
+    return "/dashboard";
+  };
 
   return (
     <Routes>
       {/* Public Routes */}
       <Route 
         path="/login" 
-        element={!isAuthenticated ? <Login /> : <Navigate to="/dashboard" replace />} 
+        element={!isAuthenticated ? <Login /> : <Navigate to={getDefaultRoute()} replace />} 
       />
       <Route 
         path="/register" 
-        element={!isAuthenticated ? <Register /> : <Navigate to="/dashboard" replace />} 
+        element={!isAuthenticated ? <Register /> : <Navigate to={getDefaultRoute()} replace />} 
       />
       
-      {/* Protected Routes */}
+      {/* Student Routes */}
       <Route 
         path="/dashboard" 
         element={
-          <ProtectedRoute>
+          <ProtectedRoute requireRole="student">
             <Dashboard />
           </ProtectedRoute>
         } 
@@ -67,7 +75,7 @@ const AppRoutes = () => {
       <Route 
         path="/book-class" 
         element={
-          <ProtectedRoute>
+          <ProtectedRoute requireRole="student">
             <BookClass />
           </ProtectedRoute>
         } 
@@ -77,6 +85,16 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute>
             <Messages />
+          </ProtectedRoute>
+        } 
+      />
+      
+      {/* Tutor Routes */}
+      <Route 
+        path="/tutor-dashboard" 
+        element={
+          <ProtectedRoute requireRole="tutor">
+            <TutorDashboard />
           </ProtectedRoute>
         } 
       />
@@ -127,7 +145,7 @@ const AppRoutes = () => {
       <Route 
         path="/" 
         element={
-          isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
+          <Navigate to={getDefaultRoute()} replace />
         } 
       />
       

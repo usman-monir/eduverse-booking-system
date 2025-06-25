@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -12,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -21,7 +20,25 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      
+      // Get the user after login to determine redirect
+      const dummyUsers = [
+        { email: 'john@student.com', role: 'student' },
+        { email: 'sarah@tutor.com', role: 'tutor' },
+        { email: 'admin@portal.com', role: 'admin' }
+      ];
+      
+      const foundUser = dummyUsers.find(u => u.email === email);
+      
+      // Redirect based on role
+      if (foundUser?.role === 'admin') {
+        navigate('/admin');
+      } else if (foundUser?.role === 'tutor') {
+        navigate('/tutor-dashboard');
+      } else {
+        navigate('/dashboard');
+      }
+      
       toast({
         title: "Login successful",
         description: "Welcome back to EduPortal!",

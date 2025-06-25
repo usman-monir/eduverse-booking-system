@@ -33,10 +33,10 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
   ];
 
   const tutorNavItems = [
-    { path: '/dashboard', label: 'Dashboard', icon: User },
-    { path: '/courses', label: 'My Courses', icon: Calendar },
+    { path: '/tutor-dashboard', label: 'Dashboard', icon: User },
+    { path: '/admin/sessions', label: 'My Sessions', icon: Calendar },
     { path: '/messages', label: 'Messages', icon: MessageSquare },
-    { path: '/admin/sessions', label: 'Manage Sessions', icon: Settings },
+    { path: '/courses', label: 'Course Materials', icon: BookOpen },
   ];
 
   const adminNavItems = [

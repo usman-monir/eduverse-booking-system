@@ -59,7 +59,7 @@ const AppRoutes = () => {
       <Route 
         path="/courses" 
         element={
-          <ProtectedRoute>
+          <ProtectedRoute requireRole="student">
             <Courses />
           </ProtectedRoute>
         } 
@@ -95,6 +95,22 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute requireRole="tutor">
             <TutorDashboard />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/tutor/sessions" 
+        element={
+          <ProtectedRoute requireRole="tutor">
+            <AdminSessions />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/tutor/courses" 
+        element={
+          <ProtectedRoute requireRole="tutor">
+            <AdminCourses />
           </ProtectedRoute>
         } 
       />

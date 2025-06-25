@@ -26,13 +26,13 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
     { path: '/dashboard', label: 'Dashboard', icon: User },
     { path: '/courses', label: 'My Courses', icon: Calendar },
     { path: '/book-class', label: 'Book a Class', icon: Clock },
-    { path: '/messages', label: 'Messages', icon: Message_Square },
+    { path: '/messages', label: 'Messages', icon: MessageSquare },
   ];
 
   const adminNavItems = [
     { path: '/admin', label: 'Admin Dashboard', icon: User },
     { path: '/admin/sessions', label: 'Manage Sessions', icon: Calendar },
-    { path: '/admin/whatsapp', label: 'WhatsApp Automation', icon: Message_Square },
+    { path: '/admin/whatsapp', label: 'WhatsApp Automation', icon: MessageSquare },
   ];
 
   const navItems = user?.role === 'admin' || user?.role === 'tutor' ? adminNavItems : studentNavItems;
@@ -54,7 +54,7 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
             onClick={onToggle}
             className="p-2"
           >
-            {isCollapsed ? <Arrow_Up className="h-4 w-4" /> : <Arrow_Down className="h-4 w-4" />}
+            {isCollapsed ? <ArrowUp className="h-4 w-4" /> : <ArrowDown className="h-4 w-4" />}
           </Button>
         </div>
       </div>

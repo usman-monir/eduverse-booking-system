@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
-import { Message_Square, Send, Settings, Zap } from 'lucide-react';
+import { MessageSquare, Send, Settings, Zap } from 'lucide-react';
 
 const WhatsAppAutomation = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(whatsappTemplates[0]);
@@ -93,7 +93,7 @@ const WhatsAppAutomation = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Message_Square className="h-5 w-5" />
+                  <MessageSquare className="h-5 w-5" />
                   <span>Template Editor</span>
                 </CardTitle>
                 <CardDescription>
@@ -132,7 +132,7 @@ const WhatsAppAutomation = () => {
                         readOnly
                       />
                       <p className="text-xs text-gray-500 mt-2">
-                        Variables: {{student_name}}, {{course_name}}, {{tutor}}, {{progress}}, {{meeting_link}}
+                        Variables: {`{{student_name}}, {{course_name}}, {{tutor}}, {{progress}}, {{meeting_link}}`}
                       </p>
                     </div>
 

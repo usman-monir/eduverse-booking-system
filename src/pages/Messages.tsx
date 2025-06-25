@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { mockMessages } from '@/data/mockData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
-import { Message_Square, Send, Search } from 'lucide-react';
+import { MessageSquare, Send, Search } from 'lucide-react';
 
 const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(mockMessages[0]);
@@ -51,7 +50,7 @@ const Messages = () => {
             <Card className="h-full">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
-                  <Message_Square className="h-5 w-5" />
+                  <MessageSquare className="h-5 w-5" />
                   <span>Conversations</span>
                 </CardTitle>
                 <div className="relative">
@@ -153,7 +152,7 @@ const Messages = () => {
               ) : (
                 <div className="flex-1 flex items-center justify-center">
                   <div className="text-center">
-                    <Message_Square className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+                    <MessageSquare className="h-12 w-12 mx-auto text-gray-400 mb-4" />
                     <p className="text-gray-500">Select a conversation to start messaging</p>
                   </div>
                 </div>

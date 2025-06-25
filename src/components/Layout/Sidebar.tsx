@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils';
 import { 
   Calendar, 
   User, 
-  Message_Square, 
+  MessageSquare, 
   Clock,
-  Arrow_Up,
-  Arrow_Down
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 
 interface SidebarProps {

@@ -10,7 +10,10 @@ import {
   MessageSquare, 
   Clock,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  BookOpen,
+  Users,
+  Settings
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -29,13 +32,28 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
     { path: '/messages', label: 'Messages', icon: MessageSquare },
   ];
 
+  const tutorNavItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: User },
+    { path: '/courses', label: 'My Courses', icon: Calendar },
+    { path: '/messages', label: 'Messages', icon: MessageSquare },
+    { path: '/admin/sessions', label: 'Manage Sessions', icon: Settings },
+  ];
+
   const adminNavItems = [
     { path: '/admin', label: 'Admin Dashboard', icon: User },
     { path: '/admin/sessions', label: 'Manage Sessions', icon: Calendar },
+    { path: '/admin/courses', label: 'Manage Courses', icon: BookOpen },
+    { path: '/admin/students', label: 'View Students', icon: Users },
     { path: '/admin/whatsapp', label: 'WhatsApp Automation', icon: MessageSquare },
   ];
 
-  const navItems = user?.role === 'admin' || user?.role === 'tutor' ? adminNavItems : studentNavItems;
+  const getNavItems = () => {
+    if (user?.role === 'admin') return adminNavItems;
+    if (user?.role === 'tutor') return tutorNavItems;
+    return studentNavItems;
+  };
+
+  const navItems = getNavItems();
 
   return (
     <div className={cn(

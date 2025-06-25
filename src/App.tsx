@@ -16,6 +16,9 @@ import CourseDetail from "./pages/CourseDetail";
 import BookClass from "./pages/BookClass";
 import Messages from "./pages/Messages";
 import Admin from "./pages/Admin";
+import AdminSessions from "./pages/AdminSessions";
+import AdminCourses from "./pages/AdminCourses";
+import AdminStudents from "./pages/AdminStudents";
 import WhatsAppAutomation from "./pages/WhatsAppAutomation";
 import NotFound from "./pages/NotFound";
 
@@ -84,6 +87,30 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute requireRole="admin">
             <Admin />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/sessions" 
+        element={
+          <ProtectedRoute requireRole="admin">
+            <AdminSessions />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/courses" 
+        element={
+          <ProtectedRoute requireRole="admin">
+            <AdminCourses />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/students" 
+        element={
+          <ProtectedRoute requireRole="admin">
+            <AdminStudents />
           </ProtectedRoute>
         } 
       />

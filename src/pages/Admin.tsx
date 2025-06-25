@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
 import { Users, Calendar, BookOpen, TrendingUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
   const totalSessions = mockClassSessions.length;
@@ -92,7 +93,7 @@ const Admin = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {mockClassSessions.map((session) => (
+              {mockClassSessions.slice(0, 5).map((session) => (
                 <div key={session.id} className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="space-y-1">
                     <h3 className="font-semibold">{session.subject}</h3>
@@ -151,26 +152,32 @@ const Admin = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Button className="h-20">
-            <div className="text-center">
-              <Calendar className="h-6 w-6 mx-auto mb-2" />
-              <span>Add Session</span>
-            </div>
-          </Button>
+          <Link to="/admin/sessions">
+            <Button className="h-20 w-full">
+              <div className="text-center">
+                <Calendar className="h-6 w-6 mx-auto mb-2" />
+                <span>Manage Sessions</span>
+              </div>
+            </Button>
+          </Link>
           
-          <Button variant="outline" className="h-20">
-            <div className="text-center">
-              <BookOpen className="h-6 w-6 mx-auto mb-2" />
-              <span>Manage Courses</span>
-            </div>
-          </Button>
+          <Link to="/admin/courses">
+            <Button variant="outline" className="h-20 w-full">
+              <div className="text-center">
+                <BookOpen className="h-6 w-6 mx-auto mb-2" />
+                <span>Manage Courses</span>
+              </div>
+            </Button>
+          </Link>
           
-          <Button variant="outline" className="h-20">
-            <div className="text-center">
-              <Users className="h-6 w-6 mx-auto mb-2" />
-              <span>View Students</span>
-            </div>
-          </Button>
+          <Link to="/admin/students">
+            <Button variant="outline" className="h-20 w-full">
+              <div className="text-center">
+                <Users className="h-6 w-6 mx-auto mb-2" />
+                <span>View Students</span>
+              </div>
+            </Button>
+          </Link>
           
           <Button variant="outline" className="h-20">
             <div className="text-center">

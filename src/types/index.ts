@@ -36,6 +36,8 @@ export interface ClassSession {
   duration: string;
   status: 'available' | 'booked' | 'completed';
   studentId?: string;
+  meetingLink?: string;
+  description?: string;
 }
 
 export interface Message {

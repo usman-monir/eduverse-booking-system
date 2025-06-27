@@ -1,142 +1,93 @@
 
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from '@/hooks/use-toast';
+import { GraduationCap, BookOpen, Users } from 'lucide-react';
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (password !== confirmPassword) {
-      toast({
-        title: "Password mismatch",
-        description: "Please make sure your passwords match.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      await register(name, email, password);
-      navigate('/dashboard');
-      toast({
-        title: "Registration successful",
-        description: "Welcome to EduPortal!",
-      });
-    } catch (error) {
-      toast({
-        title: "Registration failed",
-        description: "Please try again with different credentials.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-blue-600 mb-2">EduPortal</h1>
-          <p className="text-gray-600">Create your learning account</p>
+          <h1 className="text-4xl font-bold text-purple-600 mb-2">EduPortal</h1>
+          <p className="text-gray-600 text-lg">Choose how you want to join our learning community</p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Create your account</CardTitle>
-            <CardDescription>
-              Sign up to start your learning journey
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="mt-1"
-                  placeholder="Enter your full name"
-                />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Student Registration */}
+          <Card className="hover:shadow-lg transition-shadow border-2 hover:border-blue-200">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="bg-blue-600 p-4 rounded-full">
+                  <GraduationCap className="h-12 w-12 text-white" />
+                </div>
               </div>
-
-              <div>
-                <Label htmlFor="email">Email address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="mt-1"
-                  placeholder="Enter your email"
-                />
+              <CardTitle className="text-2xl text-blue-600">Join as Student</CardTitle>
+              <CardDescription className="text-base">
+                Start your learning journey with personalized tutoring and study materials
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="font-semibold text-gray-800">What you get:</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Access to qualified tutors</li>
+                  <li>• Protected study materials</li>
+                  <li>• One-on-one sessions</li>
+                  <li>• Progress tracking</li>
+                  <li>• 24/7 messaging support</li>
+                </ul>
               </div>
+              <Link to="/register/student" className="block">
+                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                  Register as Student
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
 
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="mt-1"
-                  placeholder="Create a password"
-                />
+          {/* Tutor Registration */}
+          <Card className="hover:shadow-lg transition-shadow border-2 hover:border-green-200">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="bg-green-600 p-4 rounded-full">
+                  <BookOpen className="h-12 w-12 text-white" />
+                </div>
               </div>
-
-              <div>
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className="mt-1"
-                  placeholder="Confirm your password"
-                />
+              <CardTitle className="text-2xl text-green-600">Join as Tutor</CardTitle>
+              <CardDescription className="text-base">
+                Share your knowledge and help students achieve their academic goals
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="font-semibold text-gray-800">What you can do:</h4>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li>• Teach students online</li>
+                  <li>• Upload study materials</li>
+                  <li>• Manage your sessions</li>
+                  <li>• Set your availability</li>
+                  <li>• Track student progress</li>
+                </ul>
               </div>
+              <Link to="/register/tutor" className="block">
+                <Button className="w-full bg-green-600 hover:bg-green-700">
+                  Register as Tutor
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={loading}
-              >
-                {loading ? 'Creating account...' : 'Create account'}
-              </Button>
-            </form>
-
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <Link to="/login" className="text-blue-600 hover:text-blue-500">
-                  Sign in
-                </Link>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="text-center">
+          <p className="text-sm text-gray-600">
+            Already have an account?{' '}
+            <Link to="/login" className="text-purple-600 hover:text-purple-500 font-medium">
+              Sign in here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

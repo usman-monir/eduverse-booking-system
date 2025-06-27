@@ -7,24 +7,17 @@ export interface User {
   avatar: string;
 }
 
-export interface Course {
+export interface StudyMaterial {
   id: string;
   title: string;
   description: string;
-  instructor: string;
-  progress: number;
-  status: 'active' | 'completed' | 'not-started';
-  thumbnail: string;
-  duration: string;
-  lessons: Lesson[];
-}
-
-export interface Lesson {
-  id: string;
-  title: string;
-  type: 'video' | 'pdf' | 'quiz';
-  duration: string;
-  completed: boolean;
+  fileName: string;
+  fileUrl: string;
+  fileType: 'pdf' | 'doc' | 'docx' | 'ppt' | 'pptx';
+  uploadedBy: string;
+  uploadedAt: string;
+  subject: string;
+  accessLevel: 'all' | 'student' | 'tutor';
 }
 
 export interface ClassSession {

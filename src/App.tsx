@@ -10,10 +10,11 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 // Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import RegisterStudent from "./pages/RegisterStudent";
+import RegisterTutor from "./pages/RegisterTutor";
 import Dashboard from "./pages/Dashboard";
 import TutorDashboard from "./pages/TutorDashboard";
-import Courses from "./pages/Courses";
-import CourseDetail from "./pages/CourseDetail";
+import StudyMaterials from "./pages/StudyMaterials";
 import BookClass from "./pages/BookClass";
 import Messages from "./pages/Messages";
 import Admin from "./pages/Admin";
@@ -46,6 +47,14 @@ const AppRoutes = () => {
         path="/register" 
         element={!isAuthenticated ? <Register /> : <Navigate to={getDefaultRoute()} replace />} 
       />
+      <Route 
+        path="/register/student" 
+        element={!isAuthenticated ? <RegisterStudent /> : <Navigate to={getDefaultRoute()} replace />} 
+      />
+      <Route 
+        path="/register/tutor" 
+        element={!isAuthenticated ? <RegisterTutor /> : <Navigate to={getDefaultRoute()} replace />} 
+      />
       
       {/* Student Routes */}
       <Route 
@@ -57,18 +66,10 @@ const AppRoutes = () => {
         } 
       />
       <Route 
-        path="/courses" 
+        path="/study-materials" 
         element={
           <ProtectedRoute requireRole="student">
-            <Courses />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/courses/:id" 
-        element={
-          <ProtectedRoute>
-            <CourseDetail />
+            <StudyMaterials />
           </ProtectedRoute>
         } 
       />

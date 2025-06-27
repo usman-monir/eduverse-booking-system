@@ -1,13 +1,12 @@
 
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { mockCourses, mockClassSessions } from '@/data/mockData';
+import { mockClassSessions } from '@/data/mockData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, User } from 'lucide-react';
+import { Calendar, Clock, User, FileText, Book } from 'lucide-react';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
 
 const Dashboard = () => {
@@ -17,7 +16,29 @@ const Dashboard = () => {
     session.status === 'booked' && session.studentId === user?.id
   );
 
-  const activeCourses = mockCourses.filter(course => course.status === 'active');
+  // Mock study materials for now
+  const studyMaterials = [
+    {
+      id: '1',
+      title: 'Mathematics - Calculus Notes',
+      description: 'Comprehensive calculus study material',
+      fileName: 'calculus-notes.pdf',
+      subject: 'Mathematics',
+      uploadedBy: 'Dr. Smith',
+      uploadedAt: '2024-01-15',
+      fileType: 'pdf' as const
+    },
+    {
+      id: '2',
+      title: 'Physics - Quantum Mechanics',
+      description: 'Introduction to quantum mechanics',
+      fileName: 'quantum-mechanics.pdf',
+      subject: 'Physics',
+      uploadedBy: 'Prof. Johnson',
+      uploadedAt: '2024-01-10',
+      fileType: 'pdf' as const
+    }
+  ];
 
   return (
     <DashboardLayout>
@@ -28,7 +49,7 @@ const Dashboard = () => {
             Welcome back, {user?.name}!
           </h1>
           <p className="text-blue-100">
-            Ready to continue your learning journey? You have {activeCourses.length} active courses.
+            Ready to continue your learning journey? You have {studyMaterials.length} study materials available.
           </p>
         </div>
 
@@ -36,13 +57,13 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Study Materials</CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{activeCourses.length}</div>
+              <div className="text-2xl font-bold">{studyMaterials.length}</div>
               <p className="text-xs text-muted-foreground">
-                Continue your progress
+                Available resources
               </p>
             </CardContent>
           </Card>
@@ -64,15 +85,15 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Overall Progress</CardTitle>
+              <CardTitle className="text-sm font-medium">Sessions Booked</CardTitle>
               <User className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {Math.round(activeCourses.reduce((acc, course) => acc + course.progress, 0) / activeCourses.length)}%
+                {mockClassSessions.filter(s => s.status === 'booked').length}
               </div>
               <p className="text-xs text-muted-foreground">
-                Across all courses
+                This month
               </p>
             </CardContent>
           </Card>
@@ -104,45 +125,38 @@ const Dashboard = () => {
           </Card>
         )}
 
-        {/* Active Courses */}
+        {/* Study Materials */}
         <div>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Your Active Courses</h2>
-            <Link to="/courses">
-              <Button variant="outline">View All Courses</Button>
+            <h2 className="text-2xl font-bold">Study Materials</h2>
+            <Link to="/study-materials">
+              <Button variant="outline">View All Materials</Button>
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {activeCourses.map((course) => (
-              <Card key={course.id} className="hover:shadow-lg transition-shadow">
+            {studyMaterials.map((material) => (
+              <Card key={material.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <img
-                    src={course.thumbnail}
-                    alt={course.title}
-                    className="w-full h-40 object-cover rounded-lg mb-4"
-                  />
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">{course.title}</CardTitle>
-                    <Badge variant="secondary">{course.progress}%</Badge>
+                    <CardTitle className="text-lg">{material.title}</CardTitle>
+                    <Badge variant="secondary">{material.fileType.toUpperCase()}</Badge>
                   </div>
                   <CardDescription className="text-sm">
-                    {course.instructor} • {course.duration}
+                    {material.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between text-sm mb-2">
-                        <span>Progress</span>
-                        <span>{course.progress}%</span>
-                      </div>
-                      <Progress value={course.progress} className="h-2" />
+                    <div className="text-sm text-gray-600">
+                      <p>📚 {material.subject}</p>
+                      <p>👨‍🏫 {material.uploadedBy}</p>
+                      <p>📅 {material.uploadedAt}</p>
                     </div>
                     
-                    <Link to={`/courses/${course.id}`}>
-                      <Button className="w-full">Continue Learning</Button>
-                    </Link>
+                    <Button className="w-full" disabled>
+                      View Material
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -176,13 +190,13 @@ const Dashboard = () => {
             </Card>
           </Link>
 
-          <Link to="/courses">
+          <Link to="/study-materials">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-6 text-center">
-                <Clock className="h-12 w-12 mx-auto mb-4 text-purple-600" />
+                <Book className="h-12 w-12 mx-auto mb-4 text-purple-600" />
                 <h3 className="font-semibold">Study Materials</h3>
                 <p className="text-sm text-gray-600 mt-2">
-                  Access your course content
+                  Access your learning resources
                 </p>
               </CardContent>
             </Card>

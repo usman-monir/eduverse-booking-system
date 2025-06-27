@@ -15,13 +15,23 @@ interface SessionFormProps {
 }
 
 const SessionForm = ({ session, onSubmit, onCancel }: SessionFormProps) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    subject: string;
+    tutor: string;
+    date: string;
+    time: string;
+    duration: string;
+    status: 'available' | 'booked' | 'completed';
+    studentId: string;
+    meetingLink: string;
+    description: string;
+  }>({
     subject: '',
     tutor: '',
     date: '',
     time: '',
     duration: '60 minutes',
-    status: 'available' as const,
+    status: 'available',
     studentId: '',
     meetingLink: '',
     description: ''

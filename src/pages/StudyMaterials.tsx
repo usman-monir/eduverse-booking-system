@@ -131,7 +131,7 @@ const StudyMaterials = () => {
                     {getFileTypeIcon(material.fileType)}
                     <Badge variant="outline">{material.fileType.toUpperCase()}</Badge>
                   </div>
-                  <Shield className="h-4 w-4 text-gray-400" title="Protected Content" />
+                  <Shield className="h-4 w-4 text-gray-400" />
                 </div>
                 <CardTitle className="text-lg">{material.title}</CardTitle>
                 <CardDescription>{material.description}</CardDescription>

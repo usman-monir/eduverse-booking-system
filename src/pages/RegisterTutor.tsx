@@ -39,7 +39,7 @@ const RegisterTutor = () => {
     setLoading(true);
 
     try {
-      await register(name, email, password, 'tutor');
+      await register(name, email, password);
       navigate('/tutor-dashboard');
       toast({
         title: "Registration successful",

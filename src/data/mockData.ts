@@ -1,54 +1,5 @@
 
-import { Course, ClassSession, Message } from '@/types';
-
-export const mockCourses: Course[] = [
-  {
-    id: '1',
-    title: 'Advanced Mathematics',
-    description: 'Comprehensive calculus and algebra course for advanced students',
-    instructor: 'Dr. Sarah Wilson',
-    progress: 75,
-    status: 'active',
-    thumbnail: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400',
-    duration: '12 weeks',
-    lessons: [
-      { id: '1', title: 'Introduction to Calculus', type: 'video', duration: '45 min', completed: true },
-      { id: '2', title: 'Derivatives and Applications', type: 'pdf', duration: '30 min', completed: true },
-      { id: '3', title: 'Integration Techniques', type: 'video', duration: '60 min', completed: false },
-      { id: '4', title: 'Practice Quiz', type: 'quiz', duration: '20 min', completed: false }
-    ]
-  },
-  {
-    id: '2',
-    title: 'Physics Fundamentals',
-    description: 'Basic principles of mechanics, thermodynamics, and electromagnetism',
-    instructor: 'Prof. Michael Johnson',
-    progress: 45,
-    status: 'active',
-    thumbnail: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400',
-    duration: '10 weeks',
-    lessons: [
-      { id: '1', title: 'Newton\'s Laws', type: 'video', duration: '40 min', completed: true },
-      { id: '2', title: 'Energy and Work', type: 'pdf', duration: '25 min', completed: false },
-      { id: '3', title: 'Thermodynamics Basics', type: 'video', duration: '50 min', completed: false }
-    ]
-  },
-  {
-    id: '3',
-    title: 'Computer Science Basics',
-    description: 'Introduction to programming concepts and algorithms',
-    instructor: 'Dr. Emily Chen',
-    progress: 90,
-    status: 'active',
-    thumbnail: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400',
-    duration: '8 weeks',
-    lessons: [
-      { id: '1', title: 'Programming Fundamentals', type: 'video', duration: '60 min', completed: true },
-      { id: '2', title: 'Data Structures', type: 'pdf', duration: '35 min', completed: true },
-      { id: '3', title: 'Algorithm Analysis', type: 'video', duration: '45 min', completed: true }
-    ]
-  }
-];
+import { ClassSession, Message } from '@/types';
 
 export const mockClassSessions: ClassSession[] = [
   {

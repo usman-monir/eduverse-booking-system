@@ -35,7 +35,7 @@ const RegisterStudent = () => {
     setLoading(true);
 
     try {
-      await register(name, email, password, 'student');
+      await register(name, email, password);
       navigate('/dashboard');
       toast({
         title: "Registration successful",

@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { mockCourses } from '@/data/mockData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,7 @@ const mockStudents = [
     name: 'John Smith',
     email: 'john@student.com',
     phone: '+1234567890',
-    enrolledCourses: 3,
+    enrolledSessions: 3,
     completedSessions: 12,
     joinedDate: '2024-01-15',
     status: 'active',
@@ -26,7 +25,7 @@ const mockStudents = [
     name: 'Sarah Johnson',
     email: 'sarah@student.com',
     phone: '+1234567891',
-    enrolledCourses: 2,
+    enrolledSessions: 2,
     completedSessions: 8,
     joinedDate: '2024-02-10',
     status: 'active',
@@ -37,7 +36,7 @@ const mockStudents = [
     name: 'Mike Wilson',
     email: 'mike@student.com',
     phone: '+1234567892',
-    enrolledCourses: 1,
+    enrolledSessions: 1,
     completedSessions: 3,
     joinedDate: '2024-03-05',
     status: 'inactive',
@@ -110,12 +109,12 @@ const AdminStudents = () => {
                   </div>
                   <div className="grid grid-cols-2 gap-2 pt-2 text-sm">
                     <div className="text-center p-2 bg-blue-50 rounded">
-                      <div className="font-semibold text-blue-600">{student.enrolledCourses}</div>
-                      <div className="text-xs text-gray-600">Courses</div>
+                      <div className="font-semibold text-blue-600">{student.enrolledSessions}</div>
+                      <div className="text-xs text-gray-600">Sessions</div>
                     </div>
                     <div className="text-center p-2 bg-green-50 rounded">
                       <div className="font-semibold text-green-600">{student.completedSessions}</div>
-                      <div className="text-xs text-gray-600">Sessions</div>
+                      <div className="text-xs text-gray-600">Completed</div>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="w-full mt-3">

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { mockClassSessions, mockCourses } from '@/data/mockData';
+import { mockClassSessions } from '@/data/mockData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ const Admin = () => {
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Manage sessions, courses, and student progress</p>
+          <p className="text-gray-600">Manage sessions, study materials, and student progress</p>
         </div>
 
         {/* Stats Cards */}
@@ -119,37 +119,6 @@ const Admin = () => {
           </CardContent>
         </Card>
 
-        {/* Course Overview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Course Overview</CardTitle>
-            <CardDescription>Track course progress and student engagement</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {mockCourses.map((course) => (
-                <div key={course.id} className="border rounded-lg p-4">
-                  <img
-                    src={course.thumbnail}
-                    alt={course.title}
-                    className="w-full h-32 object-cover rounded mb-3"
-                  />
-                  <h3 className="font-semibold mb-2">{course.title}</h3>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p>Instructor: {course.instructor}</p>
-                    <p>Duration: {course.duration}</p>
-                    <p>Lessons: {course.lessons.length}</p>
-                    <div className="flex justify-between items-center mt-3">
-                      <Badge>{course.status}</Badge>
-                      <span className="font-medium">{course.progress}% avg</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Link to="/admin/sessions">
@@ -161,11 +130,11 @@ const Admin = () => {
             </Button>
           </Link>
           
-          <Link to="/admin/courses">
+          <Link to="/study-materials">
             <Button variant="outline" className="h-20 w-full">
               <div className="text-center">
                 <BookOpen className="h-6 w-6 mx-auto mb-2" />
-                <span>Manage Courses</span>
+                <span>Study Materials</span>
               </div>
             </Button>
           </Link>

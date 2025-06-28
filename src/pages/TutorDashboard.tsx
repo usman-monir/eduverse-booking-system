@@ -1,16 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { mockClassSessions } from '@/data/mockData';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Users, BookOpen } from 'lucide-react';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
+import { ClassSession } from '@/types';
 
 const TutorDashboard = () => {
   const { user } = useAuth();
+  const [selectedSession, setSelectedSession] = useState<ClassSession | null>(null);
   
   const todaySessions = mockClassSessions.filter(session => 
     session.status === 'booked' && session.tutor === user?.name
@@ -151,9 +154,68 @@ const TutorDashboard = () => {
                     <Badge variant={session.status === 'booked' ? 'default' : 'secondary'}>
                       {session.status}
                     </Badge>
-                    <Button variant="outline" size="sm">
-                      View Details
-                    </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm" onClick={() => setSelectedSession(session)}>
+                          View Details
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                          <DialogTitle>Session Details</DialogTitle>
+                        </DialogHeader>
+                        {selectedSession && (
+                          <div className="grid gap-4 py-4">
+                            <div className="space-y-2">
+                              <div>
+                                <label className="text-sm font-medium text-gray-500">Subject</label>
+                                <p className="text-lg font-semibold">{selectedSession.subject}</p>
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium text-gray-500">Date</label>
+                                <p>{selectedSession.date}</p>
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium text-gray-500">Time</label>
+                                <p>{selectedSession.time}</p>
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium text-gray-500">Duration</label>
+                                <p>{selectedSession.duration}</p>
+                              </div>
+                              <div>
+                                <label className="text-sm font-medium text-gray-500">Status</label>
+                                <div className="mt-1">
+                                  <Badge variant={selectedSession.status === 'booked' ? 'default' : 'secondary'}>
+                                    {selectedSession.status}
+                                  </Badge>
+                                </div>
+                              </div>
+                              {selectedSession.studentId && (
+                                <div>
+                                  <label className="text-sm font-medium text-gray-500">Student ID</label>
+                                  <p>{selectedSession.studentId}</p>
+                                </div>
+                              )}
+                              {selectedSession.meetingLink && (
+                                <div>
+                                  <label className="text-sm font-medium text-gray-500">Meeting Link</label>
+                                  <p className="text-blue-600 hover:underline cursor-pointer">
+                                    {selectedSession.meetingLink}
+                                  </p>
+                                </div>
+                              )}
+                              {selectedSession.description && (
+                                <div>
+                                  <label className="text-sm font-medium text-gray-500">Description</label>
+                                  <p>{selectedSession.description}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               ))}

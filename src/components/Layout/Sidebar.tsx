@@ -13,7 +13,8 @@ import {
   ArrowDown,
   BookOpen,
   Users,
-  Settings
+  Settings,
+  UserPlus
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -43,6 +44,7 @@ const Sidebar = ({ isCollapsed, onToggle }: SidebarProps) => {
     { path: '/admin', label: 'Admin Dashboard', icon: User },
     { path: '/admin/sessions', label: 'Manage Sessions', icon: Calendar },
     { path: '/admin/courses', label: 'Study Materials', icon: BookOpen },
+    { path: '/admin/users', label: 'Manage Users', icon: UserPlus },
     { path: '/admin/students', label: 'View Students', icon: Users },
     { path: '/admin/whatsapp', label: 'WhatsApp Automation', icon: MessageSquare },
   ];

@@ -20,6 +20,7 @@ import Messages from "./pages/Messages";
 import Admin from "./pages/Admin";
 import AdminSessions from "./pages/AdminSessions";
 import AdminCourses from "./pages/AdminCourses";
+import AdminUsers from "./pages/AdminUsers";
 import AdminStudents from "./pages/AdminStudents";
 import WhatsAppAutomation from "./pages/WhatsAppAutomation";
 import NotFound from "./pages/NotFound";
@@ -138,6 +139,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute requireRole="admin">
             <AdminCourses />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/users" 
+        element={
+          <ProtectedRoute requireRole="admin">
+            <AdminUsers />
           </ProtectedRoute>
         } 
       />

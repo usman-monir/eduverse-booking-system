@@ -9,7 +9,8 @@ import { Calendar } from '@/components/ui/calendar';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
-import { Calendar as CalendarIcon, Clock, User } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, User, Plus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BookClass = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -52,9 +53,35 @@ const BookClass = () => {
     <DashboardLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Book a Class</h1>
-          <p className="text-gray-600">Schedule one-on-one sessions with your tutors</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">Book a Class</h1>
+            <p className="text-gray-600">Schedule one-on-one sessions with your tutors</p>
+          </div>
+          
+          <Link to="/request-slot">
+            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+              <Plus className="h-5 w-5 mr-2" />
+              Request Custom Slot
+            </Button>
+          </Link>
+        </div>
+
+        {/* Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="bg-blue-50 border-blue-200">
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-blue-800 mb-2">📅 Available Sessions</h3>
+              <p className="text-blue-700 text-sm">Book from pre-scheduled available time slots</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-purple-50 border-purple-200">
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-purple-800 mb-2">⏰ Request Custom Slot</h3>
+              <p className="text-purple-700 text-sm">Request your preferred time with your chosen tutor</p>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -199,15 +226,28 @@ const BookClass = () => {
         {/* Booking Guidelines */}
         <Card className="bg-blue-50 border-blue-200">
           <CardHeader>
-            <CardTitle className="text-blue-800">Booking Guidelines</CardTitle>
+            <CardTitle className="text-blue-800">Booking Options</CardTitle>
           </CardHeader>
           <CardContent className="text-blue-700">
-            <ul className="space-y-2 text-sm">
-              <li>• Sessions must be booked at least 24 hours in advance</li>
-              <li>• Cancellations are allowed up to 2 hours before the session</li>
-              <li>• You will receive a meeting link via email after booking</li>
-              <li>• Please join the session 5 minutes early</li>
-            </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold mb-2">📅 Available Sessions</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>• Book instantly from available slots</li>
+                  <li>• Immediate confirmation</li>
+                  <li>• Fixed schedule options</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-2">⏰ Custom Slot Requests</h4>
+                <ul className="space-y-1 text-sm">
+                  <li>• Choose your preferred time & tutor</li>
+                  <li>• Subject to admin approval</li>
+                  <li>• Flexible scheduling options</li>
+                  <li>• Email confirmation after approval</li>
+                </ul>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

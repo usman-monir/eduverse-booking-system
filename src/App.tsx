@@ -16,12 +16,14 @@ import Dashboard from "./pages/Dashboard";
 import TutorDashboard from "./pages/TutorDashboard";
 import StudyMaterials from "./pages/StudyMaterials";
 import BookClass from "./pages/BookClass";
+import RequestSlot from "./pages/RequestSlot";
 import Messages from "./pages/Messages";
 import Admin from "./pages/Admin";
 import AdminSessions from "./pages/AdminSessions";
 import AdminCourses from "./pages/AdminCourses";
 import AdminUsers from "./pages/AdminUsers";
 import AdminStudents from "./pages/AdminStudents";
+import AdminSlotRequests from "./pages/AdminSlotRequests";
 import WhatsAppAutomation from "./pages/WhatsAppAutomation";
 import NotFound from "./pages/NotFound";
 
@@ -79,6 +81,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute requireRole="student">
             <BookClass />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/request-slot" 
+        element={
+          <ProtectedRoute requireRole="student">
+            <RequestSlot />
           </ProtectedRoute>
         } 
       />
@@ -155,6 +165,14 @@ const AppRoutes = () => {
         element={
           <ProtectedRoute requireRole="admin">
             <AdminStudents />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/admin/slot-requests" 
+        element={
+          <ProtectedRoute requireRole="admin">
+            <AdminSlotRequests />
           </ProtectedRoute>
         } 
       />

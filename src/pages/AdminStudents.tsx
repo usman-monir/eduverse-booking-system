@@ -6,51 +6,41 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
-import { Search, Mail, Phone, Calendar } from 'lucide-react';
-
-const mockStudents = [
-  {
-    id: '1',
-    name: 'John Smith',
-    email: 'john@student.com',
-    phone: '+1234567890',
-    enrolledSessions: 3,
-    completedSessions: 12,
-    joinedDate: '2024-01-15',
-    status: 'active',
-    avatar: '/placeholder.svg'
-  },
-  {
-    id: '2',
-    name: 'Sarah Johnson',
-    email: 'sarah@student.com',
-    phone: '+1234567891',
-    enrolledSessions: 2,
-    completedSessions: 8,
-    joinedDate: '2024-02-10',
-    status: 'active',
-    avatar: '/placeholder.svg'
-  },
-  {
-    id: '3',
-    name: 'Mike Wilson',
-    email: 'mike@student.com',
-    phone: '+1234567892',
-    enrolledSessions: 1,
-    completedSessions: 3,
-    joinedDate: '2024-03-05',
-    status: 'inactive',
-    avatar: '/placeholder.svg'
-  }
-];
+import { Search, Mail, Phone, Calendar, Loader2 } from 'lucide-react';
+import { useUsers } from '@/hooks/useMockApi';
 
 const AdminStudents = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { users, loading, error } = useUsers();
 
-  const filteredStudents = mockStudents.filter(student =>
+  // Filter only students
+  const students = users.filter(user => user.role === 'student');
+
+  const filteredStudents = students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin" />
+          <span className="ml-2">Loading students...</span>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashboardLayout>
+        <div className="text-center py-12">
+          <p className="text-red-500">Error loading students: {error}</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>

@@ -5,48 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FileText, Download, Eye, Shield } from 'lucide-react';
+import { FileText, Download, Eye, Shield, Loader2 } from 'lucide-react';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
+import { useStudyMaterials } from '@/hooks/useMockApi';
 
 const StudyMaterials = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('all');
+  const { materials, loading, error } = useStudyMaterials();
 
-  // Mock study materials
-  const studyMaterials = [
-    {
-      id: '1',
-      title: 'Mathematics - Calculus Notes',
-      description: 'Comprehensive calculus study material covering derivatives and integrals',
-      fileName: 'calculus-notes.pdf',
-      subject: 'Mathematics',
-      uploadedBy: 'Dr. Smith',
-      uploadedAt: '2024-01-15',
-      fileType: 'pdf' as const
-    },
-    {
-      id: '2',
-      title: 'Physics - Quantum Mechanics',
-      description: 'Introduction to quantum mechanics and wave functions',
-      fileName: 'quantum-mechanics.pdf',
-      subject: 'Physics',
-      uploadedBy: 'Prof. Johnson',
-      uploadedAt: '2024-01-10',
-      fileType: 'pdf' as const
-    },
-    {
-      id: '3',
-      title: 'Chemistry - Organic Compounds',
-      description: 'Study guide for organic chemistry reactions',
-      fileName: 'organic-chemistry.docx',
-      subject: 'Chemistry',
-      uploadedBy: 'Dr. Wilson',
-      uploadedAt: '2024-01-08',
-      fileType: 'docx' as const
-    }
-  ];
-
-  const filteredMaterials = studyMaterials.filter(material => {
+  const filteredMaterials = materials.filter(material => {
     const matchesSearch = material.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          material.subject.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSubject = subjectFilter === 'all' || material.subject === subjectFilter;
@@ -58,7 +26,28 @@ const StudyMaterials = () => {
     return <FileText className="h-4 w-4" />;
   };
 
-  const subjects = [...new Set(studyMaterials.map(m => m.subject))];
+  const subjects = [...new Set(materials.map(m => m.subject))];
+
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="flex items-center justify-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin" />
+          <span className="ml-2">Loading study materials...</span>
+        </div>
+      </DashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashboardLayout>
+        <div className="text-center py-12">
+          <p className="text-red-500">Error loading study materials: {error}</p>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout>
@@ -95,7 +84,7 @@ const StudyMaterials = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4">
-              <div className="text-2xl font-bold">{studyMaterials.length}</div>
+              <div className="text-2xl font-bold">{materials.length}</div>
               <p className="text-sm text-gray-600">Total Materials</p>
             </CardContent>
           </Card>
@@ -108,7 +97,7 @@ const StudyMaterials = () => {
           <Card>
             <CardContent className="p-4">
               <div className="text-2xl font-bold text-green-600">
-                {studyMaterials.filter(m => m.fileType === 'pdf').length}
+                {materials.filter(m => m.fileType === 'pdf').length}
               </div>
               <p className="text-sm text-gray-600">PDF Files</p>
             </CardContent>

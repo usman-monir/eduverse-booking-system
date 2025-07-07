@@ -6,11 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DashboardLayout from '@/components/Layout/DashboardLayout';
+import StudentProfile from '@/components/StudentProfile';
 import { Search, Mail, Phone, Calendar, Loader2 } from 'lucide-react';
 import { useUsers } from '@/hooks/useMockApi';
 
 const AdminStudents = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState(null);
   const { users, loading, error } = useUsers();
 
   // Filter only students
@@ -20,6 +22,14 @@ const AdminStudents = () => {
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleViewProfile = (student: any) => {
+    setSelectedStudent(student);
+  };
+
+  const handleCloseProfile = () => {
+    setSelectedStudent(null);
+  };
 
   if (loading) {
     return (
@@ -107,7 +117,12 @@ const AdminStudents = () => {
                       <div className="text-xs text-gray-600">Completed</div>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full mt-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full mt-3"
+                    onClick={() => handleViewProfile(student)}
+                  >
                     View Profile
                   </Button>
                 </div>
@@ -115,6 +130,13 @@ const AdminStudents = () => {
             </Card>
           ))}
         </div>
+
+        {selectedStudent && (
+          <StudentProfile
+            student={selectedStudent}
+            onClose={handleCloseProfile}
+          />
+        )}
       </div>
     </DashboardLayout>
   );
